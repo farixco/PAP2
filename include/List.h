@@ -8,6 +8,7 @@ class List {
   protected:
    struct Node {
       Node* Next = nullptr;
+      Node* Prev = nullptr;
       T Data;
    };
    Node* Head = nullptr;
@@ -24,6 +25,7 @@ class List {
 	 Node* Placeholder = new Node;
 	 Placeholder->Data = item;
 	 Placeholder->Next = nullptr;
+	 Placeholder->Prev = Tail;
 	 Tail->Next = Placeholder;
 	 Tail = Placeholder;
 	 ++Length;
@@ -40,6 +42,7 @@ class List {
 	 Node* p2 = placeholder->Next->Next;
 	 delete placeholder->Next;
 	 placeholder->Next = p2;
+	 p2->Prev = placeholder;
       } else {
 	 Head = Head->Next;
       }

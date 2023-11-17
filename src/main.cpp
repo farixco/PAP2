@@ -1,4 +1,5 @@
 #include "../include/List.h"
+#include "../include/Hash.h"
 #include <iostream>
 
 int main() {

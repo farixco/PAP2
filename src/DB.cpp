@@ -2,40 +2,15 @@
 #include "../include/Hash.h"
 #include <fstream>
 
-void DB::ISort() {
-   if (!Head || !Head->Next) {
-      return;
-   }
-   Node* srtAct = nullptr;
-   Node* placeholder = Head;
-
-   while (placeholder) {
-      Node* next = placeholder->Next;
-
-      if (!srtAct || srtAct->Data >= placeholder->Data) {
-	 placeholder->Next = srtAct;
-	 placeholder->Prev = nullptr;
-	 srtAct->Prev = placeholder;
-	 srtAct = placeholder;
-      } else {
-	 Node* temp = srtAct;
-	 while (temp->Next && temp->Next->Data < placeholder->Data) {
-	    temp = temp->Next;
+void DB::Sort() {
+   for (int i = 0; i < Length; ++i) {
+      for (int j = 0; j < Length; ++j) {
+	 if (this->GetAt(i)[0] < this->GetAt(j)[0]) {
+	    std::string* tmp = this->GetAt(i);
+	    this->SetAt(i, this->GetAt(j));
+	    this->SetAt(j, tmp);
 	 }
-	 placeholder->Next = temp->Next;
-	 placeholder->Prev = temp;
-	 if (temp->Next) {
-	    temp->Next->Prev = placeholder;
-	 }
-	 temp->Next = placeholder;
       }
-
-      placeholder = next;
-   }
-   Head = srtAct;
-   Tail = srtAct;
-   while (Tail->Next) {
-      Tail = Tail->Next;
    }
 }
 
@@ -47,8 +22,9 @@ void DB::Load(std::string filepath) {
 	 readline++;
       }
    }
-   if (file.is_open()) {
-      while(std::getline(file, line)) {
+   std::ifstream file2(filepath);
+   if (file2.is_open()) {
+      while(std::getline(file2, line)) {
 	 int posTmp = 0;
 	 int i = 0;
 	 std::string data[5];
@@ -59,11 +35,13 @@ void DB::Load(std::string filepath) {
 	       data[i] = line.substr(0,posTmp);
 	    }
 	    ++i;
-	    line.erase(0, posTmp + 1);
+	    if (i != 4) {
+	       line.erase(0, posTmp + 1);
+	    }
 	 }
+	 data[4] = line.substr(0,posTmp);
 	 Add(data);
       }
-      ISort();
    }
 }
 

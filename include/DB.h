@@ -3,8 +3,8 @@
 
 class DB : protected List<std::string*> {
   private:
-   void ISort();
    int readline = 0;
+   void Sort();
   public:
    using List<std::string*>::Count;
    using List<std::string*>::GetAt;

@@ -14,7 +14,6 @@ class List {
    Node* Head = nullptr;
    Node* Tail = nullptr;
    int Length = 0;
-   
   public:
    void Add(T item) {
       if (Head == nullptr) {

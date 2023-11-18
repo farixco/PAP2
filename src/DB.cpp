@@ -42,8 +42,7 @@ void DB::ISort() {
 void DB::Load(std::string filepath) {
    std::string line;
    std::ifstream file(filepath);
-   int readline = 0;
-   if (file.is_open()) {
+   if (file.is_open() && readline == 0) {
       while(std::getline(file, line)) {
 	 readline++;
       }
@@ -64,5 +63,61 @@ void DB::Load(std::string filepath) {
 	 }
 	 Add(data);
       }
+      ISort();
+   }
+}
+
+int* DB::SearchK(std::string Key) {
+   std::string hK = Hash::Hashing(Key, readline);
+   Node* izq = Head;
+   Node* der = Tail;
+   int i = 0, j = Length;
+   List<int>* tmp = new List<int>;
+   while (izq && der && izq != der && izq->Next != der) {
+      if (izq->Data[0] == Key) {
+	 tmp->Add(i);
+      }
+      if (der->Data[0] == Key) {
+	 tmp->Add(j);
+      }
+      izq = izq->Next;
+      ++i;
+      der = der->Prev;
+      --j;
+   }
+   if (tmp->Count() == 0) {
+      int rt[1] = {-1};
+      return rt;
+   } else {
+      int rt[tmp->Count()];
+      for (int i = 0; i < tmp->Count(); ++i) {
+	 rt[i] = tmp->GetAt(i);
+      }
+      return rt;
+   }
+}
+
+int* DB::SearchV(std::string Value) {
+   List<int>* tmp = new List<int>;
+   Node* bncr = Head;
+   int i = 0;
+   while (bncr) {
+      for (int j = 1; j < 4; ++j) {
+	 if (bncr->Data[j] == Value) {
+	    tmp->Add(i);
+	 }
+      }
+      bncr = bncr->Next;
+      ++i;
+   }
+   if (tmp->Count() == 0) {
+      int rt[1] = {-1};
+      return rt;
+   } else {
+      int rt[tmp->Count()];
+      for (int i = 0; i < tmp->Count(); ++i) {
+	 rt[i] = tmp->GetAt(i);
+      }
+      return rt;
    }
 }

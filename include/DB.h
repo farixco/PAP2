@@ -4,7 +4,9 @@
 class DB : protected List<std::string*> {
   private:
    void ISort();
+   int readline = 0;
   public:
    void Load(std::string filepath);
-   std::string* Search(std::string hKey);
+   int* SearchK(std::string Key);
+   int* SearchV(std::string Value);
 };

@@ -6,7 +6,9 @@ class DB : protected List<std::string*> {
    void ISort();
    int readline = 0;
   public:
+   using List<std::string*>::Count;
+   using List<std::string*>::GetAt;
    void Load(std::string filepath);
-   int* SearchK(std::string Key);
-   int* SearchV(std::string Value);
+   List<int>* SearchK(std::string Key);
+   List<int>* SearchV(std::string Value);
 };

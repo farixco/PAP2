@@ -67,7 +67,7 @@ void DB::Load(std::string filepath) {
    }
 }
 
-int* DB::SearchK(std::string Key) {
+List<int>* DB::SearchK(std::string Key) {
    std::string hK = Hash::Hashing(Key, readline);
    Node* izq = Head;
    Node* der = Tail;
@@ -85,19 +85,10 @@ int* DB::SearchK(std::string Key) {
       der = der->Prev;
       --j;
    }
-   if (tmp->Count() == 0) {
-      int rt[1] = {-1};
-      return rt;
-   } else {
-      int rt[tmp->Count()];
-      for (int i = 0; i < tmp->Count(); ++i) {
-	 rt[i] = tmp->GetAt(i);
-      }
-      return rt;
-   }
+   return tmp;
 }
 
-int* DB::SearchV(std::string Value) {
+List<int>* DB::SearchV(std::string Value) {
    List<int>* tmp = new List<int>;
    Node* bncr = Head;
    int i = 0;
@@ -110,14 +101,5 @@ int* DB::SearchV(std::string Value) {
       bncr = bncr->Next;
       ++i;
    }
-   if (tmp->Count() == 0) {
-      int rt[1] = {-1};
-      return rt;
-   } else {
-      int rt[tmp->Count()];
-      for (int i = 0; i < tmp->Count(); ++i) {
-	 rt[i] = tmp->GetAt(i);
-      }
-      return rt;
-   }
+   return tmp;
 }

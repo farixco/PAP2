@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
-project("Respaldo de CD")
+set (CMAKE_CXX_STANDARD 17)
+project("InMemoryDB")
 
 add_compile_options(
        -Wall
@@ -8,7 +9,7 @@ add_compile_options(
        $<$<CONFIG:DEBUG>:-g>
 )
 
-enable_testing()
-add_subdirectory(test)
+# enable_testing()
+# add_subdirectory(test)
 
-add_executable(repcd src/main.cpp src/CD.cpp src/Queue.cpp)
+add_executable(memdb src/main.cpp src/DB.cpp src/Hash.cpp)

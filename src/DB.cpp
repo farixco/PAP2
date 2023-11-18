@@ -1,6 +1,7 @@
 #include "../include/DB.h"
 #include "../include/Hash.h"
 #include <fstream>
+#include <string_view>
 
 DB::Node* DB::Part(Node* p, Node* s) {
    std::string* tmp = s->Data;
@@ -19,8 +20,9 @@ DB::Node* DB::Part(Node* p, Node* s) {
    } else {
       t1 = t1->Next;
    }
-   s->Data = t1->Data;
-   t1->Data = tmp;
+   // s->Data = t1->Data;
+   // t1->Data = tmp;
+   std::swap(t1->Data, s->Data);
    return t1;
 }
 

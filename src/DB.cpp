@@ -46,8 +46,8 @@ void DB::Load(std::string filepath) {
    if (file2.is_open()) {
       while(std::getline(file2, line)) {
 	 int posTmp = 0;
-	 int i = 17;
-	 std::string* data = new std::string[18];
+	 int i = 0;
+	 std::string* data = new std::string[17];
 	 while ((posTmp = line.find(',')) != std::string::npos) {
 	    if (i == 0) {
 	       data[i] = Hash::Hashing(line.substr(0,posTmp), readline);

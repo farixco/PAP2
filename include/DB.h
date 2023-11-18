@@ -4,7 +4,8 @@
 class DB : protected List<std::string*> {
   private:
    int readline = 0;
-   void Sort();
+   Node* Part(Node* p, Node* s);
+   void QSort(Node* p, Node* s);
   public:
    using List<std::string*>::Count;
    using List<std::string*>::GetAt;

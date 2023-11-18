@@ -2,15 +2,33 @@
 #include "../include/Hash.h"
 #include <fstream>
 
-void DB::Sort() {
-   for (int i = 0; i < Length; ++i) {
-      for (int j = 0; j < Length; ++j) {
-	 if (this->GetAt(i)[0] < this->GetAt(j)[0]) {
-	    std::string* tmp = this->GetAt(i);
-	    this->SetAt(i, this->GetAt(j));
-	    this->SetAt(j, tmp);
+DB::Node* DB::Part(Node* p, Node* s) {
+   std::string* tmp = s->Data;
+   Node* t1 = p->Prev;
+   for (Node* t2 = p; t2 != s; t2 = t2->Next) {
+      if (t2->Data[0] <= tmp[0]) {
+	 if (t1 == nullptr) {
+	    t1 = p;
+	 } else {
+	    t1 = t1->Next;
 	 }
       }
+   }
+   if (t1 == nullptr) {
+      t1 = p;
+   } else {
+      t1 = t1->Next;
+   }
+   s->Data = t1->Data;
+   t1->Data = tmp;
+   return t1;
+}
+
+void DB::QSort(Node* p, Node* s) {
+   if (s != nullptr && p != s && p != s->Next) {
+      Node* tmp = Part(p, s);
+      QSort(p, tmp->Prev);
+      QSort(tmp->Next, s);
    }
 }
 
@@ -27,7 +45,7 @@ void DB::Load(std::string filepath) {
       while(std::getline(file2, line)) {
 	 int posTmp = 0;
 	 int i = 0;
-	 std::string data[5];
+	 std::string* data = new std::string[5];
 	 while ((posTmp = line.find(',')) != std::string::npos) {
 	    if (i == 0) {
 	       data[i] = Hash::Hashing(line.substr(0,posTmp), readline);
@@ -43,6 +61,7 @@ void DB::Load(std::string filepath) {
 	 Add(data);
       }
    }
+   QSort(Head, Tail);
 }
 
 List<int>* DB::SearchK(std::string Key) {

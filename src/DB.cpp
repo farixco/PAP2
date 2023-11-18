@@ -46,8 +46,8 @@ void DB::Load(std::string filepath) {
    if (file2.is_open()) {
       while(std::getline(file2, line)) {
 	 int posTmp = 0;
-	 int i = 0;
-	 std::string* data = new std::string[5];
+	 int i = 17;
+	 std::string* data = new std::string[18];
 	 while ((posTmp = line.find(',')) != std::string::npos) {
 	    if (i == 0) {
 	       data[i] = Hash::Hashing(line.substr(0,posTmp), readline);
@@ -55,11 +55,11 @@ void DB::Load(std::string filepath) {
 	       data[i] = line.substr(0,posTmp);
 	    }
 	    ++i;
-	    if (i != 4) {
+	    if (i != 16) {
 	       line.erase(0, posTmp + 1);
 	    }
 	 }
-	 data[4] = line.substr(0,posTmp);
+	 data[16] = line.substr(0,posTmp);
 	 Add(data);
       }
    }
@@ -67,22 +67,16 @@ void DB::Load(std::string filepath) {
 }
 
 List<int>* DB::SearchK(std::string Key) {
-   std::string hK = Hash::Hashing(Key, readline);
-   Node* izq = Head;
-   Node* der = Tail;
-   int i = 0, j = Length;
+   std::string Value = Hash::Hashing(Key, readline);
    List<int>* tmp = new List<int>;
-   while (izq && der && izq != der && izq->Next != der) {
-      if (izq->Data[0] == Key) {
+   Node* bncr = Head;
+   int i = 0;
+   while (bncr) {
+      if (bncr->Data[0] == Value) {
 	 tmp->Add(i);
       }
-      if (der->Data[0] == Key) {
-	 tmp->Add(j);
-      }
-      izq = izq->Next;
+      bncr = bncr->Next;
       ++i;
-      der = der->Prev;
-      --j;
    }
    return tmp;
 }
@@ -92,7 +86,7 @@ List<int>* DB::SearchV(std::string Value) {
    Node* bncr = Head;
    int i = 0;
    while (bncr) {
-      for (int j = 1; j < 4; ++j) {
+      for (int j = 1; j < 17; ++j) {
 	 if (bncr->Data[j] == Value) {
 	    tmp->Add(i);
 	 }

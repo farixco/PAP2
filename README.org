@@ -1,0 +1,9 @@
+#+TITLE: Documentación Proyecto 2
+#+AUTHOR: Francisco Andrés Rodriguez Orozco - 1060820
+#+DATE: 18 de Noviembre de 2023
+
+* Métodos de Búsqueda
+** Búsqueda Binaria
+En teoría, tiene una complejidad de O(log n) en los peores casos y en promedio y O(1) en los mejores.
+** Búsqueda Secuencial
+Tiene una complejidad de O(n) en caso promedio y peor, y O(1) en el mejor (cuando el elemento está al principio de la lista).

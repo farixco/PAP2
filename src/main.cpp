@@ -46,7 +46,7 @@ int main() {
 	       } else {
 		  for (int i = 0; i < indices->Count(); ++i) {
 		     cout << indices->GetAt(i) << ".";
-		     for (int j = 0; j < 5; ++j) {
+		     for (int j = 0; j < 17; ++j) {
 			cout << " " << baseDatos->GetAt(indices->GetAt(i))[j];
 		     }
 		     cout << endl;
@@ -63,7 +63,7 @@ int main() {
 	       } else {
 		  for (int i = 0; i < indices->Count(); ++i) {
 		     cout << indices->GetAt(i) << ".";
-		     for (int j = 0; j < 5; ++j) {
+		     for (int j = 0; j < 17; ++j) {
 			cout << " " << baseDatos->GetAt(indices->GetAt(i))[j];
 		     }
 		     cout << endl;

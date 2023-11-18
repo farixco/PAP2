@@ -7,7 +7,7 @@ DB::Node* DB::Part(Node* p, Node* s) {
    std::string* tmp = s->Data;
    Node* t1 = p->Prev;
    for (Node* t2 = p; t2 != s; t2 = t2->Next) {
-      if (t2->Data[0] <= tmp[0]) {
+      if (t2->Data[0] >= tmp[0]) {
 	 if (t1 == nullptr) {
 	    t1 = p;
 	 } else {
@@ -63,7 +63,7 @@ void DB::Load(std::string filepath) {
 	 Add(data);
       }
    }
-   QSort(Head, Tail);
+   // QSort(Head, Tail);
 }
 
 List<int>* DB::SearchK(std::string Key) {
